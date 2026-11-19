@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NUOL Scores</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark;
+--bg:#0b0b0c;--card:#161618;--ink:#f2f2f3;--mute:#9a9aa2;--line:#2a2a2e;--brand:#e8553d;--tint:#222226;--ok:#47cd89;--err:#f97066}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Noto Sans Lao","Noto Sans",system-ui,Arial,sans-serif}
+.shell{display:flex;min-height:100vh}.shell.col aside{display:none}
+aside{width:228px;flex-shrink:0;background:#000;border-right:1px solid var(--line);padding:16px 0;display:flex;flex-direction:column}
+.logo{color:#fff;font-weight:600;font-size:17px;line-height:1.1;padding:0 18px 16px;letter-spacing:.6px}
+aside button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:10px 18px;color:#b4b4bb;font:inherit;font-size:14px;background:none;border:0;border-radius:0;cursor:pointer}
+aside button:hover{background:#141416;color:#fff}aside button.on{background:#1c1c20;color:#fff}aside button.on svg{color:var(--brand)}
+.bot{margin-top:auto;border-top:1px solid var(--line);padding-top:8px}
+.sq{display:flex;align-items:center;gap:8px;margin:0 14px 12px;padding:0 10px;border:1px solid var(--line);border-radius:20px;color:var(--mute)}.sq input{border:0;background:none;flex:1;min-width:0;padding:8px 0;color:var(--ink)}
+.main{flex:1;min-width:0}
+.top{height:56px;background:#111113;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 16px}.grow{flex:1}
+.ib{background:none;border:0;color:var(--ink);padding:6px;cursor:pointer;display:flex}
+.uchip{display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--line);border-radius:20px;padding:3px 12px 3px 4px;color:var(--ink);cursor:pointer}
+.uchip i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+main{max-width:1100px;margin:0 auto;padding:6px 20px 30px}
+.ptitle{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin:18px 0 14px}.ptitle h1{font-size:22px;margin:0;font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse}th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--mute);font-weight:600;font-size:13px;white-space:nowrap}td.c,th.c{text-align:center;padding:8px 4px}td.e{background:var(--tint)}
+.wrap{overflow-x:auto}
+input,select,button{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:#0f0f11;color:var(--ink)}
+button.pri{background:var(--brand);color:#fff;border:0;cursor:pointer}
+button.lk{background:none;border:0;color:var(--brand);padding:0;cursor:pointer;text-decoration:underline}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.flash{padding:10px 14px;border-radius:6px;margin-bottom:14px;border:1px solid var(--line);background:var(--card)}.flash.ok{color:var(--ok)}.flash.error{color:var(--err)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}.stats .card{margin:0}
+.stat span{display:block;color:var(--mute);font-size:13px}.stat b{font-size:24px;font-weight:500}
+.mute{color:var(--mute)}
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;align-items:start}.dash>div .card:last-child{margin-bottom:0}
+.wh{display:flex;justify-content:space-between;gap:8px;font-weight:600;font-size:14px;margin-bottom:10px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12px;gap:4px 0}.cal b{color:var(--mute);font-weight:500}
+.cal em{font-style:normal;background:var(--brand);color:#fff;border-radius:50%;width:24px;height:24px;line-height:24px;display:block;margin:auto}
+.nw{padding:8px 0;border-top:1px solid var(--line);font-size:13px}.ck{display:flex;gap:8px;font-size:13px;padding:2px 0}
+.pb{height:8px;background:var(--tint);border-radius:4px;overflow:hidden}.pb div{height:100%;background:var(--brand)}
+.chart{display:flex;align-items:stretch;gap:6px;height:170px;margin-top:10px}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;font-size:11px;color:var(--mute)}
+.plot{flex:1;width:100%;display:flex;align-items:flex-end}.plot div{width:100%;background:var(--brand);border-radius:3px 3px 0 0;min-height:2px}
+.rk{padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.bar form{display:flex;gap:8px;flex:1;min-width:180px}.bar input{flex:1}
+.chip{padding:4px 14px;border-radius:16px;cursor:pointer;font-size:14px}.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.pager{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:13px;color:var(--mute)}.pager button:disabled{opacity:.4}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.f label{display:block;font-size:13px;color:var(--mute);margin-bottom:4px}.f input,.f select{width:100%}
+.login{max-width:400px;margin:50px auto;padding:0 16px}.login input{width:100%}.big{font-size:24px;font-weight:700;letter-spacing:.8px;text-align:center;margin-bottom:16px}
+@media (max-width:720px){.shell{flex-direction:column}aside{width:auto;flex-direction:row;flex-wrap:wrap;padding:6px}.logo,.sq{display:none}.bot{margin:0;border:0;display:flex;padding:0}aside button{width:auto;padding:8px 12px}}
+.pres{font-size:18px}.pres .stat b{font-size:38px}.pres main{max-width:1320px}.pres .ptitle h1{font-size:32px}.pres th,.pres td{padding:12px 12px}
+.act{white-space:nowrap}.act button{padding:3px 10px;font-size:13px;cursor:pointer}.act .dl{color:var(--err);border-color:var(--err)}
+.tb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+</style></head>
+<body><div id="app"></div>
+<script>
+var $=function(s){return document.querySelector(s)};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function sha256js(str){var m=unescape(encodeURIComponent(str)),K=[],H=[],i,j,w=[],l=m.length,b=[];
+ var P=[];for(var c=2;P.length<64;c++){var pr=true;for(var d=2;d*d<=c;d++)if(c%d===0){pr=false;break}if(pr)P.push(c)}
+ for(i=0;i<64;i++)K[i]=(Math.pow(P[i],1/3)%1)*4294967296|0;for(i=0;i<8;i++)H[i]=(Math.sqrt(P[i])%1)*4294967296|0;
+ for(i=0;i<l;i++)b[i>>2]|=m.charCodeAt(i)<<(24-(i%4)*8);b[l>>2]|=0x80<<(24-(l%4)*8);b[(((l+8)>>6)<<4)+15]=l*8;
+ function R(x,n){return(x>>>n)|(x<<(32-n))}
+ for(i=0;i<b.length;i+=16){var a=H.slice();for(j=0;j<64;j++){if(j<16)w[j]=b[i+j]|0;else{var s0=R(w[j-15],7)^R(w[j-15],18)^(w[j-15]>>>3),s1=R(w[j-2],17)^R(w[j-2],19)^(w[j-2]>>>10);w[j]=(w[j-16]+s0+w[j-7]+s1)|0}
+  var S1=R(a[4],6)^R(a[4],11)^R(a[4],25),ch=(a[4]&a[5])^(~a[4]&a[6]),t1=(a[7]+S1+ch+K[j]+w[j])|0,S0=R(a[0],2)^R(a[0],13)^R(a[0],22),mj=(a[0]&a[1])^(a[0]&a[2])^(a[1]&a[2]),t2=(S0+mj)|0;
+  a=[(t1+t2)|0,a[0],a[1],a[2],(a[3]+t1)|0,a[4],a[5],a[6]]}
+  for(j=0;j<8;j++)H[j]=(H[j]+a[j])|0}
+ return H.map(function(x){return('00000000'+(x>>>0).toString(16)).slice(-8)}).join('')}
+function sha(s){var t='nuol:'+s;
+ if(window.crypto&&crypto.subtle&&window.isSecureContext){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')}).catch(function(){return sha256js(t)})}
+ return Promise.resolve(sha256js(t))}
+function sget(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sset(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+var ACC={'admin1234':{user:'admin1234',name:'admin1234',role:'admin',h:'eb467ef5813f101d6b2b5c536ac9c96ab9d0230e092e7662e2883938c2838d66'},
+'2210001234':{user:'2210001234',name:'Somchai Vongsa',role:'student',sid:'2210001234',h:'8e254f394dbed738f32078c6e4051a0c69b45db8de899d17eb23809ea786dda4'}};
+var USERS=sget('nuol_users',{});
+function acct(k){var h=Object.prototype.hasOwnProperty;return h.call(ACC,k)?ACC[k]:(h.call(USERS,k)?USERS[k]:null)}
+var IC={home:'M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z',users:'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8',cal:'M4 5h16v16H4zM16 3v4M8 3v4M4 10h16',award:'M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM8.2 14l-1.2 8 5-3 5 3-1.2-8',db:'M12 8c4.4 0 8-1.3 8-3s-3.6-3-8-3-8 1.3-8 3 3.6 3 8 3zM4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3',gear:'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6',out:'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9',menu:'M3 6h18M3 12h18M3 18h18',search:'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.3-4.3'};
+function ic(n){return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+IC[n]+'"/></svg>'}
+var MONTHS=['Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+var TY={good:{n:'Good',c:'#639922',b:.05},normal:{n:'Normal',c:'#378ADD',b:.12},lazy:{n:'Lazy',c:'#EF9F27',b:.45},bad:{n:'Bad',c:'#E24B4A',b:.2}};
+var SCH=[['Monday','08:00-10:00','CS101','Introduction to Programming','Khamphet Sisouk','Room B201'],['Monday','10:30-12:30','MA101','Calculus I','Souliya Phimmasone','Room A105'],
+['Tuesday','08:00-10:00','CS102','Database Systems','Khamphet Sisouk','Lab 3'],['Tuesday','10:30-12:30','EN101','English for Academic Purposes','Manivanh Inthavong','Room B104'],
+['Wednesday','08:00-10:00','CS201','Data Structures','Vannasone Douangdy','Lab 2'],['Wednesday','10:30-12:30','ST101','Statistics','Sengdao Chanthavong','Room A210'],
+['Thursday','08:00-10:00','CS210','Web Development','Anousith Sayavong','Lab 3'],['Thursday','10:30-12:30','CS220','Computer Networks','Phonexay Vongsa','Lab 1'],
+['Friday','08:00-10:00','LA101','Lao Language','Viengkham Xayavong','Room B101'],['Friday','10:30-12:30','CS230','Software Engineering','Khamla Sisouk','Room B201']];
+var FF=['Manivanh','Souksavanh','Sengdao','Vilayvone','Khamla','Bouachanh','Chanthavone','Nalinthone','Viengkham','Anousone','Daovone','Keomany','Phetsamone','Souphaphone','Thongsy','Malivan','Ketsana','Lamphone','Oulayvone','Sivilay','Kongkeo'];
+var MM=['Khamphet','Bounmy','Phonexay','Sisavath','Anousith','Vannasone','Thongchanh','Keovilay','Souliya','Bounthavy','Chanthaphone','Sompong','Lattana','Khampheng','Vilaphone','Xaysana','Phouthone'];
+var LL=['Vongsa','Sisouk','Keomany','Phommasone','Inthavong','Sayavong','Douangdy','Xayavong','Phimmasone','Chanthavong'];
+
+var seed=7;function rnd(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}
+var S=[{id:'2210001234',name:'Somchai Vongsa',g:'M',major:'Computer Science'},{id:'2210001235',name:'Noy Keomany',g:'F',major:'Computer Science'}],fi=0,mi=0;
+for(var i=0;i<38;i++){var male=Math.floor((i+1)*17/38)>Math.floor(i*17/38);var fn=male?MM[mi++]:FF[fi++];
+ S.push({id:String(2210001301+i),name:fn+' '+LL[(i*3+(male?1:0))%10],g:male?'M':'F',major:i%3===2?'Accounting':'Computer Science'});}
+var types=[];[['good',12],['normal',10],['lazy',10],['bad',8]].forEach(function(p){for(var i=0;i<p[1];i++)types.push(p[0])});
+for(var i=types.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1)),t=types[i];types[i]=types[j];types[j]=t}
+function credit(t){if(rnd()<TY[t].b)return null;var r=rnd();
+ if(t==='good')return 3+(r<.45?1:0);if(t==='normal')return 2+(r<.5?1:0);
+ if(t==='lazy')return r<.6?1:(r<.8?0:2);return r<.45?0:(r<.85?1:2)}
+S.forEach(function(s,k){s.type=types[k];s.cr=[];for(var m=0;m<10;m++)s.cr.push(credit(s.type));
+ s.tot=s.cr.reduce(function(a,v){return a+(v||0)},0)});
+
+var _sv=sget('nuol_S',null);if(_sv&&_sv.length)S=_sv;
+function saveS(){sset('nuol_S',S)}
+function retot(s){s.tot=s.cr.reduce(function(a,v){return a+(v||0)},0)}
+function resetData(){if(!confirm('Reset all student data back to the demo data?'))return;try{localStorage.removeItem('nuol_S')}catch(e){}location.reload()}
+function togglePres(){pres=!pres;document.body.classList.toggle('pres',pres);try{if(pres&&document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();else if(!pres&&document.fullscreenElement)document.exitFullscreen()}catch(e){}render()}
+document.addEventListener('keydown',function(e){if(!pres||!U||/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))return;
+ var n=nav().map(function(x){return x[0]}),i=n.indexOf(view);if(e.key==='ArrowRight'&&i<n.length-1)go(n[i+1]);else if(e.key==='ArrowLeft'&&i>0)go(n[i-1]);else if(e.key==='Escape')togglePres()});
+var API=false;
+function api(a,b){return fetch('api/index.php?action='+a,{method:b?'POST':'GET',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:b?JSON.stringify(b):undefined}).then(function(r){return r.json()})}
+function useRows(r){S=r.students||[];S.forEach(retot)}
+function reloadS(){return api('students').then(function(r){if(r.ok)useRows(r)})}
+function netErr(){flash('error','Cannot reach the server.');render()}
+var pres=false,mode='login',collapsed=false,U=null,view='',st={g:'',q:'',p:1,t:''},msg=null,PAGE=10;
+function prof(){return sget('nuol_prof',{})[U.user]||{}}
+function dispName(){return prof().name||U.name}
+function nav(){return U.role==='admin'?[['dashboard','Dashboard','home'],['students','Student list','users'],['schedule','Class schedule','cal'],['credits','Credits','award'],['er','ER diagram','db']]:[['dashboard','Dashboard','home'],['schedule','Class schedule','cal'],['credits','My credits','award']]}
+function go(v){view=v;st={g:'',q:'',p:1,t:''};render()}
+function flash(t,m){msg={t:t,m:m}}
+
+function authView(){
+ var su=mode==='signup',fm=su?
+ '<form onsubmit="return signup(event)"><p><label>Full name<br><input id="sn" maxlength="100" required></label></p><p><label>Username<br><input id="su" maxlength="30" required autocomplete="username"></label></p><p><label>Student ID<br><input id="ss" maxlength="20" required placeholder="e.g. 2210001301"></label></p><p><label>Password (8 or more characters)<br><input id="sp" type="password" required minlength="8" autocomplete="new-password"></label></p><p><label>Confirm password<br><input id="sc" type="password" required autocomplete="new-password"></label></p><button class="pri">Create account</button></form>':
+ '<form onsubmit="return login(event)"><p><label>Name or student ID<br><input id="u" required autofocus autocomplete="username"></label></p><p><label>Password<br><input id="pw" type="password" required autocomplete="current-password"></label></p><button type="submit" class="pri">Sign in</button></form>';
+ return '<div class="login"><div class="big">NUOL SCORES</div><div class="card"><h2 style="margin-top:0">'+(su?'Create account':'Sign in')+'</h2>'+(msg?'<div class="flash '+msg.t+'" role="alert">'+esc(msg.m)+'</div>':'')+fm+
+ '<p class="mute" style="font-size:14px;margin:14px 0 0">'+(su?'Already have an account? <button class="lk" onclick="setMode(\'login\')">Sign in</button>':'New here? <button class="lk" onclick="setMode(\'signup\')">Create an account</button>')+'</p></div><p class="mute" style="font-size:13px;text-align:center">Demo with sample data. Nothing leaves your browser.</p></div>'}
+function setMode(m){mode=m;msg=null;render()}
+function render(){
+ var app=$('#app');
+ if(!U){app.innerHTML=authView();msg=null;return}
+ var items=nav().map(function(n){return '<button class="'+(view===n[0]?'on':'')+'" onclick="go(\''+n[0]+'\')">'+ic(n[2])+n[1]+'</button>'}).join('');
+ var titles={dashboard:'Student Portal',students:'Student list',schedule:'Class schedule',credits:'Credits: September to June',er:'ER diagram',settings:'Account settings'};
+ var body={dashboard:vDashboard,students:vStudents,schedule:vSchedule,credits:vCredits,er:vER,settings:vSettings}[view]();
+ var nm=dispName(),ini=nm.split(/\s+/).map(function(w){return w[0]}).join('').slice(0,2).toUpperCase();
+ app.innerHTML='<div class="shell'+(collapsed?' col':'')+'"><aside><div class="logo">NUOL<br>SCORES</div>'+(U.role==='admin'?'<form class="sq" onsubmit="return sideSearch(event)">'+ic('search')+'<input id="sq" placeholder="Search students" aria-label="Search students"></form>':'')+items+
+  '<div class="bot"><button class="'+(view==='settings'?'on':'')+'" onclick="go(\'settings\')">'+ic('gear')+'Account settings</button><button onclick="logout()">'+ic('out')+'Log out</button></div></aside>'+
+  '<div class="main"><div class="top"><button class="ib" onclick="collapsed=!collapsed;render()" aria-label="Show or hide menu">'+ic('menu')+'</button><span class="grow"></span><span class="mute" style="font-size:12px;margin-right:10px">'+(API?'● MySQL connected':'○ Demo mode')+'</span><button class="ib" style="font-size:14px" onclick="togglePres()">'+(pres?'✕ Exit present':'▶ Present')+'</button><button class="uchip" onclick="go(\'settings\')" aria-label="Account settings"><i>'+esc(ini)+'</i>'+esc(nm)+'</button></div>'+
+  '<main><div class="ptitle"><h1>'+titles[view]+'</h1><span class="mute">'+new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+'</span></div>'+(msg?'<div class="flash '+msg.t+'" role="status">'+esc(msg.m)+'</div>':'')+body+'</main></div></div>';msg=null}
+function sideSearch(e){e.preventDefault();st={g:'',q:$('#sq').value.trim(),p:1,t:''};view='students';render();return false}
+function login(e){e.preventDefault();var u=$('#u').value.trim().toLowerCase(),p=$('#pw').value,a=acct(u);
+ if(!a){flash('error','Invalid name or password.');render();return false}
+ sha(p).then(function(h){var ok=h===(sget('nuol_pw',{})[a.user]||a.h);
+  if(ok){U=a;view='dashboard';st={g:'',q:'',p:1,t:''};msg=null}else flash('error','Invalid name or password.');render()});return false}
+function signup(e){e.preventDefault();var n=$('#sn').value.trim(),u=$('#su').value.trim(),id=$('#ss').value.trim(),p=$('#sp').value,c=$('#sc').value,k=u.toLowerCase(),err=null,taken={};
+ Object.keys(ACC).concat(Object.keys(USERS)).forEach(function(x){var a=acct(x);if(a&&a.sid)taken[a.sid]=1});
+ if(!n||n.length>100)err='Enter your full name (up to 100 characters).';
+ else if(!/^[A-Za-z0-9][A-Za-z0-9 _.-]{2,29}$/.test(u))err='Username needs 3 to 30 letters, numbers, spaces, dots, dashes or underscores.';
+ else if(acct(k))err='That username is already taken.';
+ else if(!S.some(function(x){return x.id===id}))err='We couldn’t find that student ID.';
+ else if(taken[id])err='That student ID already has an account.';
+ else if(p.length<8||p.length>72)err='Password needs 8 to 72 characters.';
+ else if(p!==c)err='The passwords don’t match.';
+ if(err){flash('error',err);render();return false}
+ sha(p).then(function(h){USERS[k]={user:u,name:n,role:'student',sid:id,h:h};sset('nuol_users',USERS);mode='login';flash('ok','Account created. You can sign in now.');render()});return false}
+function logout(){U=null;view='';mode='login';flash('ok','You’re logged out.');render()}
+function pager(total){var pages=Math.max(1,Math.ceil(total/PAGE));if(st.p>pages)st.p=pages;
+ return '<div class="pager"><span>Page '+st.p+' of '+pages+'</span><span><button onclick="pg(-1)" '+(st.p<=1?'disabled':'')+'>Prev</button> <button onclick="pg(1)" '+(st.p>=pages?'disabled':'')+'>Next</button></span></div>'}
+function pg(d){st.p+=d;render()}
+function setF(k,v){st[k]=v;st.p=1;render()}
+function search(e){e.preventDefault();st.q=$('#q').value.trim();st.p=1;render();return false}
+function chip(k,v,l){return '<button class="chip'+(st[k]===v?' on':'')+'" onclick="setF(\''+k+'\',\''+v+'\')">'+l+'</button>'}
+function gdot(g){return '<i class="dot" style="background:'+(g==='F'?'#D4537E':'#378ADD')+'"></i>'+(g==='F'?'Female':'Male')}
+
+function vDashboard(){
+ var adm=U.role==='admin',L=adm?S:S.filter(function(s){return s.id===U.sid}),
+ tot=L.reduce(function(a,s){return a+s.tot},0),rec=L.reduce(function(a,s){return a+s.cr.filter(function(v){return v!==null}).length},0),
+ mon=MONTHS.map(function(m,i){return L.reduce(function(a,s){return a+(s.cr[i]||0)},0)}),mx=Math.max.apply(null,mon.concat([1])),f=S.filter(function(s){return s.g==='F'}).length;
+ function card(l,v){return '<div class="card stat"><span>'+l+'</span><b>'+v+'</b></div>'}
+ var h='<div class="stats">'+(adm?card('Total students',S.length)+card('Female',f)+card('Male',S.length-f)+card('Classes per week',SCH.length)+card('Credits recorded',tot)+card('Months not recorded',L.length*10-rec)
+  :card('My total credits',tot)+card('Months recorded',rec+' of 10')+card('Classes per week',SCH.length))+'</div>';
+ var now=new Date(),first=(new Date(now.getFullYear(),now.getMonth(),1).getDay()+6)%7,dim=new Date(now.getFullYear(),now.getMonth()+1,0).getDate(),cal='<div class="cal">'+['M','T','W','T','F','S','S'].map(function(d){return '<b>'+d+'</b>'}).join('');
+ for(var i=0;i<first;i++)cal+='<span></span>';
+ for(var d=1;d<=dim;d++)cal+='<span>'+(d===now.getDate()?'<em>'+d+'</em>':d)+'</span>';cal+='</div>';
+ var dn=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][now.getDay()],td=SCH.filter(function(r){return r[0]===dn});
+ var c1='<div class="card"><div class="wh"><span>My calendar</span><span class="mute">'+now.toLocaleDateString('en-GB',{month:'long',year:'numeric'})+'</span></div>'+cal+'<div class="wh" style="margin-top:14px">Today’s classes</div>'+
+  (td.length?td.map(function(r){return '<div class="nw"><b>'+r[2]+'</b> '+r[3]+'<br><span class="mute">'+r[1]+' · '+r[5]+'</span></div>'}).join(''):'<p class="mute" style="margin:0;font-size:13px">No classes today.</p>')+'</div>';
+ var p=prof(),steps=[['Add your email',p.email],['Add your phone number',p.phone],['Add your date of birth',p.dob],['Add your address',p.address],['Change your password',sget('nuol_pw',{})[U.user]]],pct=Math.round(steps.filter(function(x){return x[1]}).length/steps.length*100);
+ var c2='<div class="card"><div class="wh"><span>Account checklist</span><span>'+pct+'%</span></div><div class="pb"><div style="width:'+pct+'%"></div></div><div style="margin:10px 0">'+steps.map(function(x){return '<div class="ck"><span>'+(x[1]?'✓':'○')+'</span>'+x[0]+'</div>'}).join('')+'</div><button class="pri" onclick="go(\'settings\')">Open account settings</button></div>'+
+  '<div class="card"><div class="wh"><span>Credits recorded per month</span></div><div class="chart">'+mon.map(function(v,i){return '<div class="col"><span>'+v+'</span><div class="plot"><div style="height:'+Math.round(v/mx*100)+'%"></div></div><span>'+MONTHS[i]+'</span></div>'}).join('')+'</div></div>';
+ var nws=[['Term 1 scores published','Semester 2025–2026 term 1 results are now available.'],['Credits recorded','Monthly credits for September to June are on the Credits page.'],['Keep your details up to date','Add your email and phone in account settings.']];
+ var c3='<div class="card"><div class="wh"><span>News &amp; updates</span></div>'+nws.map(function(n){return '<div class="nw"><b>'+n[0]+'</b><br><span class="mute">'+n[1]+'</span></div>'}).join('')+'</div>';
+ if(adm){c2+=distCard();var srt=S.slice().sort(function(a,b){return b.tot-a.tot}).slice(0,5);
+  c3+='<div class="card"><div class="wh"><span>Top 5 by credits</span></div>'+srt.map(function(s,i){return '<div class="rk"><i class="dot" style="background:'+TY[s.type].c+'"></i>'+(i+1)+'. '+esc(s.name)+'</div>'}).join('')+'</div>'}
+ return h+'<div class="dash"><div>'+c1+'</div><div>'+c2+'</div><div>'+c3+'</div></div>'}
+function distCard(){var n=S.length||1;return '<div class="card"><div class="wh"><span>Students by study type</span></div>'+Object.keys(TY).map(function(k){var c=S.filter(function(s){return s.type===k}).length;return '<div style="margin-bottom:10px"><div class="wh" style="margin-bottom:4px;font-weight:400"><span><i class="dot" style="background:'+TY[k].c+'"></i>'+TY[k].n+'</span><span>'+c+' ('+Math.round(c/n*100)+'%)</span></div><div class="pb"><div style="width:'+(c/n*100)+'%;background:'+TY[k].c+'"></div></div></div>'}).join('')+'</div>'}
+function editStu(id){st.ed=id;render();window.scrollTo(0,0)}
+function delStu(id){var s=S.filter(function(x){return x.id===id})[0];if(!s||!confirm('Delete '+s.name+' ('+id+')?'))return;if(API){api('student_delete',{id:id}).then(function(r){if(r.ok){useRows(r);flash('ok','Student deleted.')}else flash('error',r.error||'Delete failed.');render()}).catch(netErr);return}
+ S=S.filter(function(x){return x.id!==id});saveS();flash('ok','Student deleted.');render()}
+function saveStu(e){e.preventDefault();var v=function(i){return $('#'+i).value.trim()},nw=st.ed==='new',id=v('fi'),err=null;
+ if(!/^[A-Za-z0-9_-]{3,20}$/.test(id))err='Student ID needs 3 to 20 letters, numbers, - or _.';
+ else if(!v('fn'))err='Enter the student name.';
+ else if(nw&&S.some(function(x){return x.id===id}))err='That student ID already exists.';
+ if(err){alert(err);return false}
+ var cr=MONTHS.map(function(m,i){var t=$('#c'+i).value.trim();if(t==='')return null;t=Math.round(+t);return isNaN(t)?null:Math.max(0,Math.min(4,t))});
+ var o=nw?{}:S.filter(function(x){return x.id===id})[0];
+ o.id=id;o.name=v('fn');o.g=$('#fg').value;o.major=v('fm')||'Computer Science';o.phone=v('fp');o.email=v('fe');o.type=$('#ft').value;o.cr=cr;retot(o);
+ if(API){api('student_save',{is_new:nw,student:o}).then(function(r){if(r.ok){useRows(r);st.ed=null;flash('ok',nw?'Student added.':'Student updated.');render()}else{flash('error',r.error||'Save failed.');reloadS().then(render)}}).catch(netErr);return false}
+ if(nw)S.push(o);saveS();st.ed=null;flash('ok',nw?'Student added.':'Student updated.');render();return false}
+function stuForm(){var nw=st.ed==='new',s=nw?{id:'',name:'',g:'M',major:'Computer Science',phone:'',email:'',type:'normal',cr:[null,null,null,null,null,null,null,null,null,null]}:S.filter(function(x){return x.id===st.ed})[0];
+ if(!s)return '';
+ return '<div class="card"><div class="wh"><span>'+(nw?'Add student':'Edit student')+'</span></div><form onsubmit="return saveStu(event)"><div class="f">'+fld('Student ID','fi',s.id,'required maxlength="20"'+(nw?'':' readonly'))+fld('Full name','fn',s.name,'required maxlength="100"')+
+  '<div><label for="fg">Gender</label><select id="fg"><option value="M"'+(s.g==='M'?' selected':'')+'>Male</option><option value="F"'+(s.g==='F'?' selected':'')+'>Female</option></select></div>'+fld('Major','fm',s.major,'maxlength="60"')+fld('Phone','fp',s.phone,'maxlength="20"')+fld('Email','fe',s.email,'type="email" maxlength="150"')+
+  '<div><label for="ft">Study type</label><select id="ft">'+Object.keys(TY).map(function(k){return '<option value="'+k+'"'+(s.type===k?' selected':'')+'>'+TY[k].n+'</option>'}).join('')+'</select></div></div>'+
+  '<div class="wh" style="margin-top:14px"><span>Credits per month (0 to 4, empty = not recorded)</span></div><div class="f" style="grid-template-columns:repeat(auto-fit,minmax(70px,1fr))">'+MONTHS.map(function(m,i){return '<div><label for="c'+i+'">'+m+'</label><input id="c'+i+'" type="number" min="0" max="4" value="'+(s.cr[i]===null||s.cr[i]===undefined?'':s.cr[i])+'"></div>'}).join('')+'</div>'+
+  '<p style="margin-bottom:0"><button type="submit" class="pri">Save</button> <button type="button" onclick="st.ed=null;render()">Cancel</button></p></form></div>'}
+function vStudents(){
+ var f=S.filter(function(s){return s.g==='F'}).length,q=st.q.toLowerCase();
+ var rows=S.filter(function(s){return(!st.g||s.g===st.g)&&(!q||s.name.toLowerCase().indexOf(q)>-1||s.id.indexOf(q)>-1)});
+ var part=rows.slice((st.p-1)*PAGE,st.p*PAGE);
+ return (st.ed?stuForm():'')+'<div class="tb"><button class="pri" onclick="st.ed=\'new\';render()">+ Add student</button>'+(API?'':'<button onclick="resetData()">Reset demo data</button>')+'</div><div class="stats"><div class="card stat"><span>Total students</span><b>'+S.length+'</b></div><div class="card stat"><span>'+gdot('F').split('</i>')[0]+'</i>Female</span><b>'+f+'</b></div><div class="card stat"><span>'+gdot('M').split('</i>')[0]+'</i>Male</span><b>'+(S.length-f)+'</b></div></div>'+
+ '<div class="card"><div class="bar">'+chip('g','','All')+chip('g','F','Female')+chip('g','M','Male')+'<form onsubmit="return search(event)"><input id="q" value="'+esc(st.q)+'" placeholder="Search name or ID" aria-label="Search students"><button>Search</button></form></div>'+
+ '<div class="wrap"><table><tr><th>ID</th><th>Name</th><th>Gender</th><th>Major</th><th>Type</th><th class="c">Credits</th><th></th></tr>'+(part.map(function(s){return '<tr><td>'+s.id+'</td><td>'+esc(s.name)+'</td><td>'+gdot(s.g)+'</td><td>'+esc(s.major)+'</td><td><i class="dot" style="background:'+(TY[s.type]||TY.normal).c+'"></i>'+(TY[s.type]||TY.normal).n+'</td><td class="c">'+s.tot+'</td><td class="act"><button onclick="editStu(\''+s.id+'\')">Edit</button> <button class="dl" onclick="delStu(\''+s.id+'\')">Delete</button></td></tr>'}).join('')||'<tr><td colspan="7" class="mute">No students match.</td></tr>')+'</table></div>'+pager(rows.length)+'</div>'}
+
+function vSchedule(){var last='';
+ return '<div class="card"><div class="wrap"><table><tr><th>Day</th><th>Time</th><th>Code</th><th>Subject</th><th>Teacher</th><th>Room</th></tr>'+
+ SCH.map(function(r){var d=r[0]===last?'':r[0];last=r[0];return '<tr><td>'+d+'</td><td>'+r[1]+'</td><td class="mute">'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td><td>'+r[5]+'</td></tr>'}).join('')+'</table></div></div>'}
+
+function vCredits(){var adm=U.role==='admin',rows=S.filter(function(s){return adm?(!st.t||s.type===st.t):s.id===U.sid}),part=rows.slice((st.p-1)*PAGE,st.p*PAGE),h='';
+ if(adm){h+='<div class="stats">'+Object.keys(TY).map(function(k){var n=S.filter(function(s){return s.type===k}).length;
+  return '<div class="card stat"><span><i class="dot" style="background:'+TY[k].c+'"></i>'+TY[k].n+' students</span><b>'+n+'</b> <span style="display:inline">('+Math.round(n/S.length*100)+'%)</span></div>'}).join('')+'</div>'+
+  '<div class="bar">'+chip('t','','All')+Object.keys(TY).map(function(k){return chip('t',k,TY[k].n)}).join('')+'</div>'}
+ h+='<div class="card"><div class="wrap"><table style="min-width:640px"><tr><th>Student</th><th>Type</th>'+MONTHS.map(function(m){return '<th class="c">'+m+'</th>'}).join('')+'<th class="c">Total</th></tr>'+
+ part.map(function(s){return '<tr><td style="white-space:nowrap">'+esc(s.name)+'</td><td style="white-space:nowrap"><i class="dot" style="background:'+TY[s.type].c+'"></i>'+TY[s.type].n+'</td>'+
+  s.cr.map(function(v){return '<td class="c'+(v===null?' e':'')+'">'+(v===null?'':v)+'</td>'}).join('')+'<td class="c"><b>'+s.tot+'</b></td></tr>'}).join('')+'</table></div>'+
+ '<p class="mute" style="font-size:13px;margin:10px 0 0">Shaded cells = no credit recorded that month.</p>'+pager(rows.length)+'</div>';return h}
+
+function fld(l,id,v,x){return '<div><label for="'+id+'">'+l+'</label><input id="'+id+'" value="'+esc(v||'')+'" '+(x||'')+'></div>'}
+function vSettings(){var p=prof(),sel=function(id,opts,v){return '<select id="'+id+'">'+opts.map(function(o){return '<option'+(o===(v||opts[0])?' selected':'')+'>'+o+'</option>'}).join('')+'</select>'};
+ return '<form onsubmit="return saveAcct(event)"><div class="card"><div class="wh"><span>Personal details</span></div><div class="f">'+
+  fld('Full name','dn',dispName(),'maxlength="100" required')+fld('Username','un',U.user,'readonly')+(U.sid?fld('Student ID','si',U.sid,'readonly'):'')+
+  fld('Email','em',p.email,'type="email" maxlength="150"')+fld('Phone','ph',p.phone,'maxlength="20"')+
+  '<div><label for="gd">Gender</label>'+sel('gd',['Prefer not to say','Female','Male'],p.gender)+'</div>'+fld('Date of birth','dob',p.dob,'type="date"')+fld('Address','ad',p.address,'maxlength="200"')+
+  fld('Emergency contact name','en',p.ecn,'maxlength="100"')+fld('Emergency contact phone','ep',p.ecp,'maxlength="20"')+'</div></div>'+
+  '<div class="card"><div class="wh"><span>Preferences</span></div><div class="f"><div><label for="lg">Language</label>'+sel('lg',['English','Lao'],p.lang)+'</div>'+
+  '<div><label><input type="checkbox" id="n1" '+(p.n1===false?'':'checked')+' style="width:auto"> Alert me when scores are published</label><label style="margin-top:8px"><input type="checkbox" id="n2" '+(p.n2===false?'':'checked')+' style="width:auto"> Remind me about class changes</label></div></div></div>'+
+  '<p><button class="pri">Save changes</button></p></form>'+
+  '<div class="card"><div class="wh"><span>Change password</span></div><form onsubmit="return savePw(event)"><div class="f"><div><label for="c">Current password</label><input id="c" type="password" required autocomplete="current-password"></div>'+
+  '<div><label for="n">New password (8 or more characters)</label><input id="n" type="password" required minlength="8" autocomplete="new-password"></div><div><label for="r">Confirm new password</label><input id="r" type="password" required autocomplete="new-password"></div></div><p style="margin-bottom:0"><button class="pri">Change password</button></p></form></div>'}
+function saveAcct(e){e.preventDefault();var v=function(i){return $('#'+i).value.trim()},ph=/^[0-9 +\-]*$/,n=v('dn'),em=v('em'),p1=v('ph'),p2=v('ep'),dob=v('dob'),err=null;
+ if(!n||n.length>100)err='Enter a name up to 100 characters.';
+ else if(em&&(em.indexOf('@')<1||em.length>150))err='Enter a valid email address.';
+ else if(p1.length>20||!ph.test(p1)||p2.length>20||!ph.test(p2))err='Phone numbers can only use digits, spaces, + and -.';
+ else if(dob&&(isNaN(Date.parse(dob))||dob>new Date().toISOString().slice(0,10)||dob<'1900-01-01'))err='Enter a real date of birth.';
+ else if(v('ad').length>200||v('en').length>100)err='Address or contact name is too long.';
+ if(err)flash('error',err);else{var all=sget('nuol_prof',{});all[U.user]={name:n,email:em,phone:p1,gender:$('#gd').value,dob:dob,address:v('ad'),ecn:v('en'),ecp:p2,lang:$('#lg').value,n1:$('#n1').checked,n2:$('#n2').checked};sset('nuol_prof',all);flash('ok','Account details saved.')}
+ render();return false}
+var ERT=[['faculties',20,20,'faculty_id,n,PK|name_lao,a|name_en,a'],['majors',20,140,'major_id,n,PK|faculty_id,n,FK|name_lao,a|name_en,a'],['teachers',20,290,'teacher_id,n,PK|first_name,a|last_name,a|faculty_id,n,FK'],
+['users',20,440,'user_id,n,PK|username,a|password_hash,a|role,a|student_id,a,FK|teacher_id,n,FK'],['user_profiles',20,640,'user_id,n,PK|display_name,a|email,a|phone,a'],
+['students',280,20,'student_id,a,PK|first_name,a|last_name,a|gender,a|birth_date,d|major_id,n,FK|entry_year,n|phone,a|email,a'],['monthly_credits',280,260,'student_id,a,PK|month_no,n|credits,n'],['student_study_type',280,380,'student_id,a,PK|study_type,a'],
+['enrollments',540,20,'enrollment_id,n,PK|student_id,a,FK|offering_id,n,FK|attendance,n|midterm,n|assignment,n|final_exam,n|total_score,n'],['course_offerings',540,230,'offering_id,n,PK|course_id,n,FK|semester_id,n,FK|teacher_id,n,FK'],
+['class_schedule',540,380,'schedule_id,n,PK|offering_id,n,FK|day_of_week,n|start_time,d|end_time,d|room,a'],['courses',800,20,'course_id,n,PK|course_code,a|name_lao,a|name_en,a|credits,n'],['semesters',800,170,'semester_id,n,PK|academic_year,a|term,n|is_published,n']];
+var ERR=[['majors','faculty_id','faculties'],['students','major_id','majors'],['teachers','faculty_id','faculties'],['users','student_id','students'],['users','teacher_id','teachers'],['user_profiles','user_id','users'],['monthly_credits','student_id','students'],['student_study_type','student_id','students'],['enrollments','student_id','students'],['enrollments','offering_id','course_offerings'],['class_schedule','offering_id','course_offerings'],['course_offerings','course_id','courses'],['course_offerings','semester_id','semesters'],['course_offerings','teacher_id','teachers']];
+function vER(){var T={};ERT.forEach(function(t){T[t[0]]={x:t[1],y:t[2],c:t[3].split('|').map(function(c){return c.split(',')})}});
+ var W=220,ln='',bx='';
+ ERR.forEach(function(r){var a=T[r[0]],b=T[r[2]],i=a.c.findIndex(function(c){return c[0]===r[1]}),sy=a.y+26+i*20+10,ty=b.y+26+10,sx,tx,mx;
+  if(a.x===b.x){sx=a.x+W;tx=b.x+W;mx=a.x+W+16}else if(a.x<b.x){sx=a.x+W;tx=b.x;mx=(sx+tx)/2}else{sx=a.x;tx=b.x+W;mx=(sx+tx)/2}
+  ln+='<path d="M'+sx+' '+sy+'H'+mx+'V'+ty+'H'+tx+'" fill="none" stroke="#6ea0d6" stroke-opacity=".75" stroke-width="1.4"/><circle cx="'+sx+'" cy="'+sy+'" r="3.5" fill="#6ea0d6"/>'});
+ ERT.forEach(function(t){var o=T[t[0]],h=26+o.c.length*20;
+  bx+='<rect x="'+o.x+'" y="'+o.y+'" width="'+W+'" height="'+h+'" rx="4" fill="#161618" stroke="#3a3a40"/><rect x="'+o.x+'" y="'+o.y+'" width="'+W+'" height="26" rx="4" fill="#2a2a30"/><text x="'+(o.x+10)+'" y="'+(o.y+17)+'" font-size="12" font-weight="600" fill="#f2f2f3">▦ '+t[0]+'</text>';
+  o.c.forEach(function(c,i){var y=o.y+26+i*20;if(i===1)bx+='<line x1="'+o.x+'" x2="'+(o.x+W)+'" y1="'+y+'" y2="'+y+'" stroke="#3a3a40"/>';
+   bx+='<text x="'+(o.x+8)+'" y="'+(y+14)+'" font-size="9" fill="#8a8a92">'+({n:'123',a:'A-Z',d:'◷'})[c[1]]+'</text><text x="'+(o.x+36)+'" y="'+(y+14)+'" font-size="12" fill="#f2f2f3"'+(c[2]==='PK'?' font-weight="600"':'')+'>'+c[0]+'</text>'+(c[2]==='FK'?'<text x="'+(o.x+W-8)+'" y="'+(y+14)+'" font-size="9" fill="#8a8a92" text-anchor="end">FK</text>':'')})});
+ return '<div class="card"><p class="mute" style="margin-top:0;font-size:13px">13 tables of this system. A dot marks the foreign key and the line points to the table it belongs to. Scroll sideways to see all of it.</p><div class="wrap"><svg viewBox="0 0 1040 770" width="1040" height="770" role="img" aria-label="Entity relationship diagram of the 13 database tables">'+ln+bx+'</svg></div></div>'}
+function savePw(e){e.preventDefault();var c=$('#c').value,n=$('#n').value,r=$('#r').value;
+ sha(c).then(function(h){var all=sget('nuol_pw',{});
+  if(h!==(all[U.user]||U.h)){flash('error','Your current password isn’t right.');render();return}
+  if(n.length<8||n.length>72){flash('error','New password needs 8 to 72 characters.');render();return}
+  if(n!==r){flash('error','The new passwords don’t match.');render();return}
+  sha(n).then(function(nh){all[U.user]=nh;sset('nuol_pw',all);flash('ok','Password changed.');render()})});return false}
+var _login=login,_signup=signup,_logout=logout,_savePw=savePw;
+login=function(e){if(!API)return _login(e);e.preventDefault();
+ api('login',{username:$('#u').value.trim(),password:$('#pw').value}).then(function(r){if(r.ok){U=r.user;useRows(r);view='dashboard';st={g:'',q:'',p:1,t:''};msg=null}else flash('error',r.error||'Invalid name or password.');render()}).catch(netErr);return false};
+signup=function(e){if(!API)return _signup(e);e.preventDefault();
+ api('signup',{name:$('#sn').value.trim(),username:$('#su').value.trim(),student_id:$('#ss').value.trim(),password:$('#sp').value,confirm:$('#sc').value}).then(function(r){if(r.ok){mode='login';flash('ok','Account created. You can sign in now.')}else flash('error',r.error||'Could not sign up.');render()}).catch(netErr);return false};
+logout=function(){if(API){api('logout').catch(function(){});S=[]}_logout()};
+savePw=function(e){if(!API)return _savePw(e);e.preventDefault();
+ api('change_password',{current:$('#c').value,new:$('#n').value,confirm:$('#r').value}).then(function(r){flash(r.ok?'ok':'error',r.ok?'Password changed.':(r.error||'Could not change the password.'));render()}).catch(netErr);return false};
+render();
+api('ping').then(function(r){if(r&&r.ok){API=true;if(r.user){U=r.user;useRows(r);view='dashboard'}render()}}).catch(function(){});
+</script></body></html>
